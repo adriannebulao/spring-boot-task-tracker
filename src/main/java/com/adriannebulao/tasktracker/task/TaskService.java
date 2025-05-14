@@ -2,6 +2,8 @@ package com.adriannebulao.tasktracker.task;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 class TaskService {
     private final TaskRepository taskRepository;
@@ -14,5 +16,17 @@ class TaskService {
         Task task = new Task(taskRequestDto.name(), taskRequestDto.status(), taskRequestDto.priority());
         task = taskRepository.save(task);
         return new TaskResponseDto(task.getId(), task.getName(), task.getStatus(), task.getPriority());
+    }
+
+    public List<TaskResponseDto> getAllTasks() {
+        return taskRepository.findAll()
+                .stream()
+                .map(task -> new TaskResponseDto(
+                        task.getId(),
+                        task.getName(),
+                        task.getStatus(),
+                        task.getPriority()
+                ))
+                .toList();
     }
 }
