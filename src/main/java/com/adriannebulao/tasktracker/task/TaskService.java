@@ -34,4 +34,20 @@ class TaskService {
         Task task = taskRepository.findById(id).orElseThrow(() -> new TaskNotFoundException("Task not found"));
         return new TaskResponseDto(task.getId(), task.getName(), task.getStatus(), task.getPriority());
     }
+
+
+    public TaskResponseDto updateTask(Integer id, TaskRequestDto taskRequestDto) {
+        Task task = taskRepository.findById(id).orElseThrow(() -> new TaskNotFoundException("Task not found"));
+        task.setName(taskRequestDto.name());
+        task.setStatus(taskRequestDto.status());
+        task.setPriority(taskRequestDto.priority());
+
+        Task updatedTask = taskRepository.save(task);
+        return new TaskResponseDto(
+                updatedTask.getId(),
+                updatedTask.getName(),
+                updatedTask.getStatus(),
+                updatedTask.getPriority()
+        );
+    }
 }
