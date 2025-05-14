@@ -51,4 +51,9 @@ class TaskService {
                 updatedTask.getPriority()
         );
     }
+
+    public void deleteTask(Integer id) {
+        Task task = taskRepository.findById(id).orElseThrow(() -> new TaskNotFoundException("Task not found"));
+        taskRepository.delete(task);
+    }
 }
