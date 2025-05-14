@@ -29,4 +29,9 @@ class TaskService {
                 ))
                 .toList();
     }
+
+    public TaskResponseDto getTaskById(Integer id) {
+        Task task = taskRepository.findById(id).orElseThrow(() -> new TaskNotFoundException("Task not found"));
+        return new TaskResponseDto(task.getId(), task.getName(), task.getStatus(), task.getPriority());
+    }
 }

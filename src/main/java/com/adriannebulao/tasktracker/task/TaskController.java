@@ -27,4 +27,10 @@ class TaskController {
         List<TaskResponseDto> tasks = taskService.getAllTasks();
         return ResponseEntity.ok(tasks);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<TaskResponseDto> getTaskById(@PathVariable Integer id) {
+        TaskResponseDto task = taskService.getTaskById(id);
+        return ResponseEntity.ok(task);
+    }
 }
