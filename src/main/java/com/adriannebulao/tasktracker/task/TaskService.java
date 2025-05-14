@@ -1,5 +1,6 @@
 package com.adriannebulao.tasktracker.task;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +20,7 @@ class TaskService {
     }
 
     public List<TaskResponseDto> getAllTasks() {
-        return taskRepository.findAll()
+        return taskRepository.findAll(Sort.by(Sort.Direction.ASC, "id"))
                 .stream()
                 .map(task -> new TaskResponseDto(
                         task.getId(),
