@@ -9,11 +9,17 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @Entity
+@Getter
+@NoArgsConstructor
+@EqualsAndHashCode
 class Task {
 
     @Id
@@ -21,14 +27,17 @@ class Task {
     private Integer id;
 
     @Column(nullable = false)
+    @Setter
     private String name;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Setter
     private TaskStatus status;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Setter
     private TaskPriority priority;
 
     @Column(nullable = false)
@@ -37,71 +46,14 @@ class Task {
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
-    public Task() {
-    }
-
-    public Task(String name, TaskStatus status, TaskPriority priority) {
-        this.name = name;
-        this.status = status;
-        this.priority = priority;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public TaskStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(TaskStatus status) {
-        this.status = status;
-    }
-
-    public TaskPriority getPriority() {
-        return priority;
-    }
-
-    public void setPriority(TaskPriority priority) {
-        this.priority = priority;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
     @PrePersist
     private void onCreate() {
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
 
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
     @PreUpdate
     private void onUpdate() {
         this.updatedAt = LocalDateTime.now();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Task task = (Task) o;
-        return Objects.equals(id, task.id) && Objects.equals(name, task.name) && status == task.status && priority == task.priority && Objects.equals(createdAt, task.createdAt) && Objects.equals(updatedAt, task.updatedAt);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, status, priority, createdAt, updatedAt);
     }
 }
