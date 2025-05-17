@@ -1,6 +1,7 @@
 package com.adriannebulao.tasktracker.user.application;
 
 import com.adriannebulao.tasktracker.user.domain.User;
+import com.adriannebulao.tasktracker.user.domain.UserNotFoundException;
 import com.adriannebulao.tasktracker.user.persistence.UserRepository;
 import com.adriannebulao.tasktracker.user.presentation.UserMapper;
 import com.adriannebulao.tasktracker.user.presentation.UserRequestDto;
@@ -29,5 +30,10 @@ public class UserService {
                 .stream()
                 .map(userMapper::toDto)
                 .toList();
+    }
+
+    public UserResponseDto getUserById(Long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found"));
+        return userMapper.toDto(user);
     }
 }
