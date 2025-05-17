@@ -36,4 +36,11 @@ public class UserService {
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found"));
         return userMapper.toDto(user);
     }
+
+    public UserResponseDto updateUser(Long id, UserRequestDto userRequestDto) {
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found"));
+        userMapper.updateUserFromDto(userRequestDto, user);
+        User updatedUser = userRepository.save(user);
+        return userMapper.toDto(updatedUser);
+    }
 }
