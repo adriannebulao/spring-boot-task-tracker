@@ -14,6 +14,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class User extends AuditableEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    private Integer id;
+    private Long id;
 
     @Column(nullable = false)
     @Setter
@@ -40,6 +41,15 @@ public class User extends AuditableEntity {
     @Column(nullable = false)
     @Setter
     private String imageUrl;
+
+    @Column(nullable = false, unique = true)
+    @Setter
+    private String email;
+
+    @Column(nullable = false)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private String password;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Task> tasks;
