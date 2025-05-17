@@ -43,4 +43,9 @@ public class UserService {
         User updatedUser = userRepository.save(user);
         return userMapper.toDto(updatedUser);
     }
+
+    public void deleteUser(Long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found"));
+        userRepository.delete(user);
+    }
 }
