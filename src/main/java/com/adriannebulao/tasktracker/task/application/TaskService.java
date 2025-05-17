@@ -34,20 +34,20 @@ public class TaskService {
                 .toList();
     }
 
-    public TaskResponseDto getTaskById(Integer id) {
+    public TaskResponseDto getTaskById(Long id) {
         Task task = taskRepository.findById(id).orElseThrow(() -> new TaskNotFoundException("Task not found"));
         return taskMapper.toDto(task);
     }
 
 
-    public TaskResponseDto updateTask(Integer id, TaskRequestDto taskRequestDto) {
+    public TaskResponseDto updateTask(Long id, TaskRequestDto taskRequestDto) {
         Task task = taskRepository.findById(id).orElseThrow(() -> new TaskNotFoundException("Task not found"));
         taskMapper.updateTaskFromDto(taskRequestDto, task);
         Task updatedTask = taskRepository.save(task);
         return taskMapper.toDto(updatedTask);
     }
 
-    public void deleteTask(Integer id) {
+    public void deleteTask(Long id) {
         Task task = taskRepository.findById(id).orElseThrow(() -> new TaskNotFoundException("Task not found"));
         taskRepository.delete(task);
     }

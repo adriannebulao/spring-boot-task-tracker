@@ -37,20 +37,20 @@ public class TaskController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TaskResponseDto> getTaskById(@PathVariable Integer id) {
+    public ResponseEntity<TaskResponseDto> getTaskById(@PathVariable Long id) {
         TaskResponseDto task = taskService.getTaskById(id);
         return ResponseEntity.ok(task);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TaskResponseDto> updateTask(@PathVariable Integer id,
+    public ResponseEntity<TaskResponseDto> updateTask(@PathVariable Long id,
                                                       @RequestBody TaskRequestDto taskRequestDto) {
         TaskResponseDto task = taskService.updateTask(id, taskRequestDto);
         return ResponseEntity.ok(task);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTask(@PathVariable Integer id) {
+    public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
         taskService.deleteTask(id);
         return ResponseEntity.noContent().build();
     }

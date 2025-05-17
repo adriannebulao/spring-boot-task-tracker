@@ -4,7 +4,7 @@ import com.adriannebulao.tasktracker.task.domain.TaskPriority;
 import com.adriannebulao.tasktracker.task.domain.TaskStatus;
 
 public record TaskResponseDto(
-        Integer id,
+        Long id,
         String name,
         TaskStatus status,
         TaskPriority priority) {}
