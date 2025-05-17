@@ -1,4 +1,4 @@
-package com.adriannebulao.tasktracker.task;
+package com.adriannebulao.tasktracker.task.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @EqualsAndHashCode
-class Task {
+public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

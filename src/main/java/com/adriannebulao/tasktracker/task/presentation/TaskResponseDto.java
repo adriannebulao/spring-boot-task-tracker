@@ -1,0 +1,10 @@
+package com.adriannebulao.tasktracker.task.presentation;
+
+import com.adriannebulao.tasktracker.task.domain.TaskPriority;
+import com.adriannebulao.tasktracker.task.domain.TaskStatus;
+
+public record TaskResponseDto(
+        Integer id,
+        String name,
+        TaskStatus status,
+        TaskPriority priority) {}

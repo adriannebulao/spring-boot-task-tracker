@@ -1,12 +1,18 @@
-package com.adriannebulao.tasktracker.task;
+package com.adriannebulao.tasktracker.task.application;
 
+import com.adriannebulao.tasktracker.task.domain.Task;
+import com.adriannebulao.tasktracker.task.domain.TaskNotFoundException;
+import com.adriannebulao.tasktracker.task.persistence.TaskRepository;
+import com.adriannebulao.tasktracker.task.presentation.TaskMapper;
+import com.adriannebulao.tasktracker.task.presentation.TaskRequestDto;
+import com.adriannebulao.tasktracker.task.presentation.TaskResponseDto;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-class TaskService {
+public class TaskService {
     private final TaskRepository taskRepository;
     private final TaskMapper taskMapper;
 

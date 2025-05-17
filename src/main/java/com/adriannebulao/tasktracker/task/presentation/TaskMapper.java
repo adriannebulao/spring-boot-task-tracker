@@ -1,12 +1,13 @@
-package com.adriannebulao.tasktracker.task;
+package com.adriannebulao.tasktracker.task.presentation;
 
+import com.adriannebulao.tasktracker.task.domain.Task;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
 @Mapper(componentModel = "spring")
-interface TaskMapper {
+public interface TaskMapper {
     Task toEntity(TaskRequestDto taskRequestDto);
 
     TaskResponseDto toDto(Task task);
