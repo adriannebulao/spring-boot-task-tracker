@@ -1,6 +1,5 @@
 package com.adriannebulao.tasktracker.user.presentation;
 
-import com.adriannebulao.tasktracker.task.presentation.TaskMapper;
 import com.adriannebulao.tasktracker.user.domain.User;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;

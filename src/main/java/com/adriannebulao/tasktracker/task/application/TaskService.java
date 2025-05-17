@@ -39,7 +39,6 @@ public class TaskService {
         return taskMapper.toDto(task);
     }
 
-
     public TaskResponseDto updateTask(Long id, TaskRequestDto taskRequestDto) {
         Task task = taskRepository.findById(id).orElseThrow(() -> new TaskNotFoundException("Task not found"));
         taskMapper.updateTaskFromDto(taskRequestDto, task);
