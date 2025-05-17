@@ -47,8 +47,7 @@ public class User extends AuditableEntity {
     private String email;
 
     @Column(nullable = false)
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
+    @Setter
     private String password;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
