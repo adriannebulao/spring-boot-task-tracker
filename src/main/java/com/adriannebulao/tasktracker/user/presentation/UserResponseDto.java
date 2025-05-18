@@ -9,5 +9,4 @@ public record UserResponseDto(
         String firstName,
         String lastName,
         String imageUrl,
-        String email,
         List<TaskResponseDto> tasks) {}
