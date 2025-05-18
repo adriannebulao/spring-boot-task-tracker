@@ -1,4 +1,4 @@
-package com.adriannebulao.tasktracker.common;
+package com.adriannebulao.tasktracker.common.base;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;

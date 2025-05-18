@@ -1,7 +1,7 @@
 package com.adriannebulao.tasktracker.user.application;
 
 import com.adriannebulao.tasktracker.user.domain.User;
-import com.adriannebulao.tasktracker.user.domain.UserNotFoundException;
+import com.adriannebulao.tasktracker.common.exception.UserNotFoundException;
 import com.adriannebulao.tasktracker.user.persistence.UserRepository;
 import com.adriannebulao.tasktracker.user.presentation.UserMapper;
 import com.adriannebulao.tasktracker.user.presentation.UserRequestDto;
@@ -11,7 +11,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor

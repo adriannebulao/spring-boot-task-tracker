@@ -6,4 +6,5 @@ import com.adriannebulao.tasktracker.task.domain.TaskStatus;
 public record TaskRequestDto(
         String name,
         TaskStatus status,
-        TaskPriority priority) {}
+        TaskPriority priority,
+        Long userId) {}

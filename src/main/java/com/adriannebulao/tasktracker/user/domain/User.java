@@ -1,6 +1,6 @@
 package com.adriannebulao.tasktracker.user.domain;
 
-import com.adriannebulao.tasktracker.common.AuditableEntity;
+import com.adriannebulao.tasktracker.common.base.AuditableEntity;
 import com.adriannebulao.tasktracker.task.domain.Task;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

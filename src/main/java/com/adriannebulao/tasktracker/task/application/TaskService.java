@@ -6,6 +6,9 @@ import com.adriannebulao.tasktracker.task.persistence.TaskRepository;
 import com.adriannebulao.tasktracker.task.presentation.TaskMapper;
 import com.adriannebulao.tasktracker.task.presentation.TaskRequestDto;
 import com.adriannebulao.tasktracker.task.presentation.TaskResponseDto;
+import com.adriannebulao.tasktracker.user.domain.User;
+import com.adriannebulao.tasktracker.common.exception.UserNotFoundException;
+import com.adriannebulao.tasktracker.user.persistence.UserRepository;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -15,14 +18,18 @@ import java.util.List;
 public class TaskService {
     private final TaskRepository taskRepository;
     private final TaskMapper taskMapper;
+    private final UserRepository userRepository;
 
-    public TaskService(TaskRepository taskRepository, TaskMapper taskMapper) {
+    public TaskService(TaskRepository taskRepository, TaskMapper taskMapper, UserRepository userRepository) {
         this.taskRepository = taskRepository;
         this.taskMapper = taskMapper;
+        this.userRepository = userRepository;
     }
 
     public TaskResponseDto createTask(TaskRequestDto taskRequestDto) {
         Task task = taskMapper.toEntity(taskRequestDto);
+        User user = userRepository.findById(taskRequestDto.userId()).orElseThrow(() -> new UserNotFoundException("User not found"));
+        task.setUser(user);
         task = taskRepository.save(task);
         return taskMapper.toDto(task);
     }

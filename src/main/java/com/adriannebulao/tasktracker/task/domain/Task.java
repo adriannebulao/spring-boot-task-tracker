@@ -1,6 +1,6 @@
 package com.adriannebulao.tasktracker.task.domain;
 
-import com.adriannebulao.tasktracker.common.AuditableEntity;
+import com.adriannebulao.tasktracker.common.base.AuditableEntity;
 import com.adriannebulao.tasktracker.user.domain.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -43,5 +43,6 @@ public class Task extends AuditableEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @Setter
     private User user;
 }
