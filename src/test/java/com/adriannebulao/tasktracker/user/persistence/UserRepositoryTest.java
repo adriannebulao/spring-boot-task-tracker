@@ -19,13 +19,17 @@ public class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;
 
-    @Test
-    public void save_shouldSaveUser_whenUserExists() {
-        User user = User.builder()
+    private User createTestUser() {
+        return User.builder()
                 .firstName("Test")
                 .lastName("Test")
                 .imageUrl("Test")
                 .build();
+    }
+
+    @Test
+    public void save_shouldSaveUser_whenUserExists() {
+        User user = createTestUser();
 
         User savedUser = userRepository.save(user);
 
@@ -38,17 +42,8 @@ public class UserRepositoryTest {
 
     @Test
     public void findAll_shouldReturnAllUsers_whenThereAreUsers() {
-        User userOne = User.builder()
-                .firstName("Test")
-                .lastName("Test")
-                .imageUrl("Test")
-                .build();
-
-        User userTwo = User.builder()
-                .firstName("Test")
-                .lastName("Test")
-                .imageUrl("Test")
-                .build();
+        User userOne = createTestUser();
+        User userTwo = createTestUser();
 
         userRepository.save(userOne);
         userRepository.save(userTwo);
@@ -61,11 +56,7 @@ public class UserRepositoryTest {
 
     @Test
     public void findById_shouldReturnUser_whenUserExists() {
-        User user = User.builder()
-                .firstName("Test")
-                .lastName("Test")
-                .imageUrl("Test")
-                .build();
+        User user = createTestUser();
 
         userRepository.save(user);
 
@@ -87,11 +78,7 @@ public class UserRepositoryTest {
 
     @Test
     public void update_shouldUpdateUser_whenUserExists() {
-        User user = User.builder()
-                .firstName("Test")
-                .lastName("Test")
-                .imageUrl("Test")
-                .build();
+        User user = createTestUser();
 
         User savedUser = userRepository.save(user);
 
@@ -110,11 +97,7 @@ public class UserRepositoryTest {
 
     @Test
     public void delete_shouldDeleteUser_whenUserExists() {
-        User user = User.builder()
-                .firstName("Test")
-                .lastName("Test")
-                .imageUrl("Test")
-                .build();
+        User user = createTestUser();
 
         userRepository.save(user);
         userRepository.delete(user);
