@@ -2,7 +2,6 @@ package com.adriannebulao.tasktracker.presentation;
 
 import com.adriannebulao.tasktracker.common.exception.UserNotFoundException;
 import com.adriannebulao.tasktracker.user.application.UserService;
-import com.adriannebulao.tasktracker.user.domain.User;
 import com.adriannebulao.tasktracker.user.presentation.UserController;
 import com.adriannebulao.tasktracker.user.presentation.UserRequestDto;
 import com.adriannebulao.tasktracker.user.presentation.UserResponseDto;
@@ -20,6 +19,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
+import static com.adriannebulao.tasktracker.util.TestDataFactory.createTestUserRequestDto;
+import static com.adriannebulao.tasktracker.util.TestDataFactory.createTestUserResponseDto;
 import static org.hamcrest.CoreMatchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
@@ -41,32 +42,6 @@ public class UserControllerTest {
     @Autowired  private MockMvc mockMvc;
     @MockitoBean private UserService userService;
     @Autowired private ObjectMapper objectMapper;
-
-    private User createTestUser() {
-        return User.builder()
-                .firstName("Test")
-                .lastName("Test")
-                .imageUrl("Test")
-                .build();
-    }
-
-    private UserRequestDto createTestUserRequestDto() {
-        return new UserRequestDto(
-                "Test",
-                "Test",
-                "Test"
-        );
-    }
-
-    private UserResponseDto createTestUserResponseDto(Long id) {
-        return new UserResponseDto(
-                id,
-                "Test",
-                "Test",
-                "Test",
-                null
-        );
-    }
 
     @Test
     public void createUser_shouldCreatedUser_whenUserCreated() throws Exception {

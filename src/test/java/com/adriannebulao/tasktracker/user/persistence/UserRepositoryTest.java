@@ -12,20 +12,14 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import java.util.List;
 import java.util.Optional;
 
+import static com.adriannebulao.tasktracker.util.TestDataFactory.createTestUser;
+
 @DataJpaTest
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 public class UserRepositoryTest {
 
     @Autowired
     private UserRepository userRepository;
-
-    private User createTestUser() {
-        return User.builder()
-                .firstName("Test")
-                .lastName("Test")
-                .imageUrl("Test")
-                .build();
-    }
 
     @Test
     public void save_shouldSaveUser_whenUserExists() {

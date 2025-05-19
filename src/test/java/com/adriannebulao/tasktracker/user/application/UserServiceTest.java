@@ -18,6 +18,9 @@ import org.springframework.data.domain.Sort;
 import java.util.List;
 import java.util.Optional;
 
+import static com.adriannebulao.tasktracker.util.TestDataFactory.createTestUser;
+import static com.adriannebulao.tasktracker.util.TestDataFactory.createTestUserRequestDto;
+import static com.adriannebulao.tasktracker.util.TestDataFactory.createTestUserResponseDto;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -26,32 +29,6 @@ public class UserServiceTest {
     @Mock private UserRepository userRepository;
     @Mock private UserMapper userMapper;
     @InjectMocks private UserService userService;
-
-    private User createTestUser() {
-        return User.builder()
-                .firstName("Test")
-                .lastName("Test")
-                .imageUrl("Test")
-                .build();
-    }
-
-    private UserRequestDto createTestUserRequestDto() {
-        return new UserRequestDto(
-                "Test",
-                "Test",
-                "Test"
-        );
-    }
-
-    private UserResponseDto createTestUserResponseDto(Long id) {
-        return new UserResponseDto(
-                id,
-                "Test",
-                "Test",
-                "Test",
-                null
-        );
-    }
 
     @Test
     public void createUser_ShouldReturnUserResponseDto_WhenUserIsCreated() {
