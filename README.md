@@ -21,19 +21,28 @@ On Windows:
 mvnw.cmd clean install
 ```
 
-3. Run PostgreSQL Database
+3. Set up `secrets.properties`
+
+On Windows:
+```
+xcopy secrets.properties.example secret.properties
+```
+
+The `jwt.secret` must be a Base64-encoded 512-bit key.
+
+4. Run PostgreSQL Database
 ```
 docker compose up -d
 ```
 
-4. Run the Spring Boot Application
+5. Run the Spring Boot Application
 
 On Windows:
 ```
 mvnw.cmd spring-boot:run
 ```
 
-5. Stop the Application
+6. Stop the Application
 
    1. Press ``CTRL + C`` in the terminal where the application is running
    2. Stop the Docker container:
