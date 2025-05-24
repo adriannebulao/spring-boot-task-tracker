@@ -6,6 +6,10 @@ import com.adriannebulao.tasktracker.security.persistence.RoleRepository;
 import com.adriannebulao.tasktracker.security.persistence.UserAccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +25,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/auth")
 public class AuthController {
 
+    private final AuthenticationManager authenticationManager;
     private final UserAccountRepository userAccountRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
@@ -56,5 +61,24 @@ public class AuthController {
         );
 
         return ResponseEntity.ok(registerResponseDto);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponseDto> login(@RequestBody LoginRequestDto loginRequestDto) {
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        loginRequestDto.username(),
+                        loginRequestDto.password()
+                )
+        );
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        LoginResponseDto loginResponseDto = new LoginResponseDto(
+                authentication.getName(),
+                "Successfully logged in!"
+        );
+
+        return ResponseEntity.ok(loginResponseDto);
     }
 }
