@@ -2,6 +2,7 @@ package com.adriannebulao.tasktracker.security.presentation;
 
 import com.adriannebulao.tasktracker.security.domain.Role;
 import com.adriannebulao.tasktracker.security.domain.UserAccount;
+import com.adriannebulao.tasktracker.security.jwt.JwtTokenProvider;
 import com.adriannebulao.tasktracker.security.persistence.RoleRepository;
 import com.adriannebulao.tasktracker.security.persistence.UserAccountRepository;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,7 @@ public class AuthController {
     private final UserAccountRepository userAccountRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @PostMapping("/register")
     public ResponseEntity<RegisterResponseDto> register(@RequestBody RegisterRequestDto registerRequestDto) {
@@ -64,7 +66,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseDto> login(@RequestBody LoginRequestDto loginRequestDto) {
+    public ResponseEntity<AuthResponseDto> login(@RequestBody LoginRequestDto loginRequestDto) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginRequestDto.username(),
@@ -74,11 +76,8 @@ public class AuthController {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        LoginResponseDto loginResponseDto = new LoginResponseDto(
-                authentication.getName(),
-                "Successfully logged in!"
-        );
+        String jwtToken = jwtTokenProvider.generateJwtToken(authentication);
 
-        return ResponseEntity.ok(loginResponseDto);
+        return ResponseEntity.ok(new AuthResponseDto(jwtToken, "Bearer"));
     }
 }
