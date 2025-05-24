@@ -1,4 +1,4 @@
-package com.adriannebulao.tasktracker.security.model;
+package com.adriannebulao.tasktracker.security.domain;
 
 import com.adriannebulao.tasktracker.common.base.AuditableEntity;
 import jakarta.persistence.Column;

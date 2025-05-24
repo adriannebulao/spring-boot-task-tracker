@@ -1,4 +1,4 @@
-package com.adriannebulao.tasktracker.security.model;
+package com.adriannebulao.tasktracker.security.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

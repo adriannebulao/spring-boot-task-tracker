@@ -1,6 +1,6 @@
 package com.adriannebulao.tasktracker.security.persistence;
 
-import com.adriannebulao.tasktracker.security.model.UserAccount;
+import com.adriannebulao.tasktracker.security.domain.UserAccount;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
