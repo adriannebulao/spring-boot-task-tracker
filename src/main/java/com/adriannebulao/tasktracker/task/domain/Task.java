@@ -1,7 +1,7 @@
 package com.adriannebulao.tasktracker.task.domain;
 
 import com.adriannebulao.tasktracker.common.base.AuditableEntity;
-import com.adriannebulao.tasktracker.user.domain.User;
+import com.adriannebulao.tasktracker.userprofile.domain.UserProfile;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -42,7 +42,7 @@ public class Task extends AuditableEntity {
     private TaskPriority priority;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_profile_id")
     @Setter
-    private User user;
+    private UserProfile userProfile;
 }

@@ -1,10 +1,10 @@
-package com.adriannebulao.tasktracker.user.presentation;
+package com.adriannebulao.tasktracker.userprofile.presentation;
 
 import com.adriannebulao.tasktracker.task.presentation.TaskSummaryDto;
 
 import java.util.List;
 
-public record UserResponseDto(
+public record UserProfileResponseDto(
         Long id,
         String firstName,
         String lastName,

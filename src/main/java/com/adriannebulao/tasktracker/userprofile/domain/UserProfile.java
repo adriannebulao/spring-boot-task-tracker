@@ -1,4 +1,4 @@
-package com.adriannebulao.tasktracker.user.domain;
+package com.adriannebulao.tasktracker.userprofile.domain;
 
 import com.adriannebulao.tasktracker.common.base.AuditableEntity;
 import com.adriannebulao.tasktracker.task.domain.Task;
@@ -26,7 +26,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
-public class User extends AuditableEntity {
+public class UserProfile extends AuditableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,6 +45,6 @@ public class User extends AuditableEntity {
     @Setter
     private String imageUrl;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL)
     private List<Task> tasks;
 }
