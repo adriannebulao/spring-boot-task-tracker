@@ -1,5 +1,6 @@
 package com.adriannebulao.tasktracker.common.exception;
 
+import com.adriannebulao.tasktracker.s3.FileUploadException;
 import com.adriannebulao.tasktracker.task.domain.TaskNotFoundException;
 import com.adriannebulao.tasktracker.userprofile.domain.UserAccountNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -50,5 +51,11 @@ public class GlobalExceptionHandler {
     public Map<String, String> handleGenericException(Exception e) {
         return Map.of("error", "An unexpected error occurred",
                 "message", e.getMessage());
+    }
+
+    @ExceptionHandler(FileUploadException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public Map<String, String> handleFileUploadException(FileUploadException e) {
+        return Map.of("error", e.getMessage());
     }
 }

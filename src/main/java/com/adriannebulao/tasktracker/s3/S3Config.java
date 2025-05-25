@@ -1,4 +1,4 @@
-package com.adriannebulao.tasktracker.config;
+package com.adriannebulao.tasktracker.s3;
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -16,9 +16,6 @@ public class S3Config {
 
     @Value("${aws.secretKey}")
     private String awsSecretKey;
-
-    @Value("${aws.s3.bucket}")
-    private String s3BucketName;
 
     @Value("${aws.region}")
     private String awsRegion;
