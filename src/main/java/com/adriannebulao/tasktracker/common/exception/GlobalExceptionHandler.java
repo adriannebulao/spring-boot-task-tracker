@@ -44,4 +44,11 @@ public class GlobalExceptionHandler {
         body.put("error", message);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(body);
     }
+
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public Map<String, String> handleGenericException(Exception e) {
+        return Map.of("error", "An unexpected error occurred",
+                "message", e.getMessage());
+    }
 }
