@@ -1,14 +1,18 @@
 package com.adriannebulao.tasktracker.userprofile.domain;
 
 import com.adriannebulao.tasktracker.common.base.AuditableEntity;
+import com.adriannebulao.tasktracker.security.domain.UserAccount;
 import com.adriannebulao.tasktracker.task.domain.Task;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,7 +24,6 @@ import lombok.Setter;
 import java.util.List;
 
 @Entity
-@Table(name = "\"user\"")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -44,6 +47,11 @@ public class UserProfile extends AuditableEntity {
     @Column(nullable = false)
     @Setter
     private String imageUrl;
+
+    @OneToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "account_id", nullable = false, unique = true)
+    @Setter
+    private UserAccount userAccount;
 
     @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL)
     private List<Task> tasks;

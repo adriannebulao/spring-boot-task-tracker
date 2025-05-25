@@ -3,4 +3,5 @@ package com.adriannebulao.tasktracker.userprofile.presentation;
 public record UserProfileRequestDto(
         String firstName,
         String lastName,
-        String imageUrl) {}
+        String imageUrl,
+        Long accountId) {}

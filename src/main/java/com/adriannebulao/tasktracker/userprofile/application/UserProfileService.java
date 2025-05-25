@@ -1,5 +1,8 @@
 package com.adriannebulao.tasktracker.userprofile.application;
 
+import com.adriannebulao.tasktracker.security.domain.UserAccount;
+import com.adriannebulao.tasktracker.security.persistence.UserAccountRepository;
+import com.adriannebulao.tasktracker.userprofile.domain.UserAccountNotFoundException;
 import com.adriannebulao.tasktracker.userprofile.domain.UserProfile;
 import com.adriannebulao.tasktracker.common.exception.UserProfileNotFoundException;
 import com.adriannebulao.tasktracker.userprofile.persistence.UserProfileRepository;
@@ -16,10 +19,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserProfileService {
     private final UserProfileRepository userProfileRepository;
+    private final UserAccountRepository userAccountRepository;
     private final UserProfileMapper userProfileMapper;
 
     public UserProfileResponseDto createUserProfile(UserProfileRequestDto userProfileRequestDto) {
         UserProfile userProfile = userProfileMapper.toEntity(userProfileRequestDto);
+        UserAccount userAccount = userAccountRepository
+                .findById(userProfileRequestDto.accountId())
+                .orElseThrow(() -> new UserAccountNotFoundException("User account not found"));
+        userProfile.setUserAccount(userAccount);
         userProfile = userProfileRepository.save(userProfile);
         return userProfileMapper.toDto(userProfile);
     }
@@ -43,6 +51,12 @@ public class UserProfileService {
                 .findById(id)
                 .orElseThrow(() -> new UserProfileNotFoundException("User profile not found"));
         userProfileMapper.updateUserProfileFromDto(userProfileRequestDto, userProfile);
+
+        UserAccount userAccount = userAccountRepository
+                .findById(userProfileRequestDto.accountId())
+                .orElseThrow(() -> new UserAccountNotFoundException("User account not found"));
+        userProfile.setUserAccount(userAccount);
+
         UserProfile updatedUser = userProfileRepository.save(userProfile);
         return userProfileMapper.toDto(updatedUser);
     }
