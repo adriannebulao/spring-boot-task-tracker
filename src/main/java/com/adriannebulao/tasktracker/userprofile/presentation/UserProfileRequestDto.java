@@ -6,5 +6,4 @@ import jakarta.validation.constraints.NotNull;
 public record UserProfileRequestDto(
         @NotBlank String firstName,
         @NotBlank String lastName,
-        @NotBlank String imageUrl,
         @NotNull Long accountId) {}
