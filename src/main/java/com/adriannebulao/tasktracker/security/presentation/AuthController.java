@@ -5,6 +5,7 @@ import com.adriannebulao.tasktracker.security.domain.UserAccount;
 import com.adriannebulao.tasktracker.security.jwt.JwtTokenProvider;
 import com.adriannebulao.tasktracker.security.persistence.RoleRepository;
 import com.adriannebulao.tasktracker.security.persistence.UserAccountRepository;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -33,7 +34,7 @@ public class AuthController {
     private final JwtTokenProvider jwtTokenProvider;
 
     @PostMapping("/register")
-    public ResponseEntity<RegisterResponseDto> register(@RequestBody RegisterRequestDto registerRequestDto) {
+    public ResponseEntity<RegisterResponseDto> register(@RequestBody @Valid RegisterRequestDto registerRequestDto) {
         if (userAccountRepository.existsByUsername(registerRequestDto.username())) {
             return ResponseEntity
                     .badRequest()
@@ -66,7 +67,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponseDto> login(@RequestBody LoginRequestDto loginRequestDto) {
+    public ResponseEntity<AuthResponseDto> login(@RequestBody @Valid LoginRequestDto loginRequestDto) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginRequestDto.username(),
