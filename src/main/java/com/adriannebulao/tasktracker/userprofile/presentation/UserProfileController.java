@@ -4,15 +4,17 @@ import com.adriannebulao.tasktracker.userprofile.application.UserProfileService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -23,9 +25,11 @@ public class UserProfileController {
 
     public final UserProfileService userProfileService;
 
-    @PostMapping
-    public ResponseEntity<UserProfileResponseDto> createUserProfile(@RequestBody @Valid UserProfileRequestDto userRequestDto) {
-        UserProfileResponseDto userProfile = userProfileService.createUserProfile(userRequestDto);
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<UserProfileResponseDto> createUserProfile(
+            @RequestPart("user") @Valid UserProfileRequestDto userRequestDto,
+            @RequestPart("image") MultipartFile imageFile) {
+        UserProfileResponseDto userProfile = userProfileService.createUserProfile(userRequestDto, imageFile);
         return ResponseEntity.status(HttpStatus.CREATED).body(userProfile);
     }
 
@@ -41,11 +45,12 @@ public class UserProfileController {
         return ResponseEntity.ok(userProfile);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<UserProfileResponseDto> updateUserProfile(
             @PathVariable Long id,
-            @RequestBody @Valid UserProfileRequestDto userProfileRequestDto) {
-        UserProfileResponseDto userProfile = userProfileService.updateUserProfile(id, userProfileRequestDto);
+            @RequestPart("user") @Valid UserProfileRequestDto userProfileRequestDto,
+            @RequestPart(value = "image", required = false) MultipartFile imageFile) {
+        UserProfileResponseDto userProfile = userProfileService.updateUserProfile(id, userProfileRequestDto, imageFile);
         return ResponseEntity.ok(userProfile);
     }
 
