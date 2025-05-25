@@ -6,6 +6,7 @@ import com.adriannebulao.tasktracker.task.domain.Task;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -47,8 +48,9 @@ public class UserProfile extends AuditableEntity {
     @Setter
     private String imageUrl;
 
-    @OneToOne(optional = false)
+    @OneToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id", nullable = false, unique = true)
+    @Setter
     private UserAccount userAccount;
 
     @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL)
