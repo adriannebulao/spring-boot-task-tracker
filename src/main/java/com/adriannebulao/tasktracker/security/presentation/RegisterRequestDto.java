@@ -1,5 +1,7 @@
 package com.adriannebulao.tasktracker.security.presentation;
 
+import jakarta.validation.constraints.NotBlank;
+
 public record RegisterRequestDto(
-        String username,
-        String password) {}
+        @NotBlank String username,
+        @NotBlank String password) {}

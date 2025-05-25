@@ -1,6 +1,7 @@
 package com.adriannebulao.tasktracker.userprofile.presentation;
 
 import com.adriannebulao.tasktracker.userprofile.application.UserProfileService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class UserProfileController {
     public final UserProfileService userProfileService;
 
     @PostMapping
-    public ResponseEntity<UserProfileResponseDto> createUserProfile(@RequestBody UserProfileRequestDto userRequestDto) {
+    public ResponseEntity<UserProfileResponseDto> createUserProfile(@RequestBody @Valid UserProfileRequestDto userRequestDto) {
         UserProfileResponseDto userProfile = userProfileService.createUserProfile(userRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(userProfile);
     }
@@ -43,7 +44,7 @@ public class UserProfileController {
     @PutMapping("/{id}")
     public ResponseEntity<UserProfileResponseDto> updateUserProfile(
             @PathVariable Long id,
-            @RequestBody UserProfileRequestDto userProfileRequestDto) {
+            @RequestBody @Valid UserProfileRequestDto userProfileRequestDto) {
         UserProfileResponseDto userProfile = userProfileService.updateUserProfile(id, userProfileRequestDto);
         return ResponseEntity.ok(userProfile);
     }
