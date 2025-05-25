@@ -6,9 +6,9 @@ import com.adriannebulao.tasktracker.task.persistence.TaskRepository;
 import com.adriannebulao.tasktracker.task.presentation.TaskMapper;
 import com.adriannebulao.tasktracker.task.presentation.TaskRequestDto;
 import com.adriannebulao.tasktracker.task.presentation.TaskResponseDto;
-import com.adriannebulao.tasktracker.user.domain.User;
-import com.adriannebulao.tasktracker.common.exception.UserNotFoundException;
-import com.adriannebulao.tasktracker.user.persistence.UserRepository;
+import com.adriannebulao.tasktracker.userprofile.domain.UserProfile;
+import com.adriannebulao.tasktracker.common.exception.UserProfileNotFoundException;
+import com.adriannebulao.tasktracker.userprofile.persistence.UserProfileRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -20,12 +20,14 @@ import java.util.List;
 public class TaskService {
     private final TaskRepository taskRepository;
     private final TaskMapper taskMapper;
-    private final UserRepository userRepository;
+    private final UserProfileRepository userProfileRepository;
 
     public TaskResponseDto createTask(TaskRequestDto taskRequestDto) {
         Task task = taskMapper.toEntity(taskRequestDto);
-        User user = userRepository.findById(taskRequestDto.userId()).orElseThrow(() -> new UserNotFoundException("User not found"));
-        task.setUser(user);
+        UserProfile userProfile = userProfileRepository
+                .findById(taskRequestDto.userId())
+                .orElseThrow(() -> new UserProfileNotFoundException("User profile not found"));
+        task.setUserProfile(userProfile);
         task = taskRepository.save(task);
         return taskMapper.toDto(task);
     }
@@ -47,9 +49,9 @@ public class TaskService {
         taskMapper.updateTaskFromDto(taskRequestDto, task);
 
         if (taskRequestDto.userId() != null) {
-            User user = userRepository.findById(taskRequestDto.userId())
-                    .orElseThrow(() -> new UserNotFoundException("User not found"));
-            task.setUser(user);
+            UserProfile userProfile = userProfileRepository.findById(taskRequestDto.userId())
+                    .orElseThrow(() -> new UserProfileNotFoundException("User profile not found"));
+            task.setUserProfile(userProfile);
         }
 
         Task updatedTask = taskRepository.save(task);

@@ -10,12 +10,12 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 @Mapper(componentModel = "spring")
 public interface TaskMapper {
 
-    @Mapping(target = "user", ignore = true)
+    @Mapping(target = "userProfile", ignore = true)
     Task toEntity(TaskRequestDto taskRequestDto);
 
     TaskResponseDto toDto(Task task);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    @Mapping(target = "user", ignore = true)
+    @Mapping(target = "userProfile", ignore = true)
     void updateTaskFromDto(TaskRequestDto taskRequestDto, @MappingTarget Task task);
 }
