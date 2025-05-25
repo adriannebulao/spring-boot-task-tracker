@@ -1,6 +1,7 @@
 package com.adriannebulao.tasktracker.task.presentation;
 
 import com.adriannebulao.tasktracker.task.application.TaskService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class TaskController {
     private final TaskService taskService;
 
     @PostMapping
-    public ResponseEntity<TaskResponseDto> createTask(@RequestBody TaskRequestDto taskRequestDto) {
+    public ResponseEntity<TaskResponseDto> createTask(@RequestBody @Valid TaskRequestDto taskRequestDto) {
         TaskResponseDto task = taskService.createTask(taskRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(task);
     }
@@ -42,7 +43,7 @@ public class TaskController {
 
     @PutMapping("/{id}")
     public ResponseEntity<TaskResponseDto> updateTask(@PathVariable Long id,
-                                                      @RequestBody TaskRequestDto taskRequestDto) {
+                                                      @RequestBody @Valid TaskRequestDto taskRequestDto) {
         TaskResponseDto task = taskService.updateTask(id, taskRequestDto);
         return ResponseEntity.ok(task);
     }

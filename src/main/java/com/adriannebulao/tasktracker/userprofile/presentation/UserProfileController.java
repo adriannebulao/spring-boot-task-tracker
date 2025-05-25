@@ -44,7 +44,7 @@ public class UserProfileController {
     @PutMapping("/{id}")
     public ResponseEntity<UserProfileResponseDto> updateUserProfile(
             @PathVariable Long id,
-            @RequestBody UserProfileRequestDto userProfileRequestDto) {
+            @RequestBody @Valid UserProfileRequestDto userProfileRequestDto) {
         UserProfileResponseDto userProfile = userProfileService.updateUserProfile(id, userProfileRequestDto);
         return ResponseEntity.ok(userProfile);
     }
