@@ -60,7 +60,12 @@ On Windows:
 mvnw.cmd spring-boot:run
 ```
 
-6. Stop the Application
+6. API Documentation
+
+Once the application is running, you can view and interact with the API documentation using Swagger UI at:
+[http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
+
+7. Stop the Application
 
    1. Press ``CTRL + C`` in the terminal where the application is running
    2. Stop the Docker container:
